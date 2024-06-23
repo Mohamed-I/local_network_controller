@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> -->
+     <style>
+        .table tbody tr {
+            line-height: 20px;
+            max-height: 25px;
+            height: 25px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: grey;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: green;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(26px);
+        }
+     </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">{{ title }}</h2>
+        <p class="mb-6">Toggle the button to block a device from accessing the internet or interact with any device in the local network.</p>
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th style="width: 40%;">Device Name</th>
+                    <th style="width: 22.5%;">Device IP</th>
+                    <th style="width: 12.5%;">Time Online</th>
+                    <th style="width: 25%;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in table_data %}
+                <tr>
+                    <td><a href="/details/{{ row['col1'] }}">{{ row['col1'] }}</a></td>
+                    <td>{{ row['col2'] }}</td>
+                    <td>{{ row['col3'] }}</td>
+                    <td>
+                        <!-- Rounded switch -->
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
